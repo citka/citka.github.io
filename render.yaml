@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: v-convert
+    runtime: docker
+    plan: starter
+    healthCheckPath: /
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
