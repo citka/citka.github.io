@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080b18">
+  <title>V-Convert | Video Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <main class="shell">
+    <nav class="nav">
+      <a class="brand" href="/"><span class="brand-mark">✦</span> V-CONVERT</a>
+      <span class="nav-tag"><i></i> PERSONAL MEDIA STUDIO</span>
+    </nav>
+
+    <section class="hero">
+      <div class="eyebrow"><span></span> YOUR FILE. YOUR FORMAT.</div>
+      <h1>Make media<br><em>your way.</em></h1>
+      <p class="intro">แปลงไฟล์วิดีโอเป็น MP4 หรือ MP3 ในพื้นที่ทำงานที่เรียบง่ายและเป็นส่วนตัว</p>
+    </section>
+
+    <section class="panel">
+      <form action="/convert" method="post" enctype="multipart/form-data" id="convertForm">
+        <label class="dropzone" id="dropzone" for="video">
+          <input type="file" id="video" name="video" accept=".mp4,.mov,.mkv,.webm,.avi,.m4v" required>
+          <span class="upload-icon">↑</span>
+          <strong id="fileTitle">วางไฟล์วิดีโอที่นี่</strong>
+          <span class="muted" id="fileHint">หรือคลิกเพื่อเลือกไฟล์จากอุปกรณ์</span>
+          <span class="formats">MP4 · MOV · MKV · WEBM · AVI · M4V <b>สูงสุด 500 MB</b></span>
+        </label>
+
+        <div class="settings">
+          <div class="section-head"><span>OUTPUT SETTINGS</span><span class="line"></span></div>
+          <div class="format-grid">
+            <label class="format-option">
+              <input type="radio" name="format" value="mp4" checked>
+              <span class="format-card"><b class="format-symbol">▣</b><b>MP4</b><small>VIDEO</small></span>
+            </label>
+            <label class="format-option">
+              <input type="radio" name="format" value="mp3">
+              <span class="format-card"><b class="format-symbol">♫</b><b>MP3</b><small>AUDIO</small></span>
+            </label>
+          </div>
+          <div class="quality-row" id="qualityRow">
+            <label for="quality">คุณภาพวิดีโอ</label>
+            <select name="quality" id="quality">
+              <option value="1080">1080p · Full HD</option>
+              <option value="720">720p · HD</option>
+              <option value="original">Original · คงขนาดเดิม</option>
+            </select>
+          </div>
+        </div>
+        <button class="convert-btn" type="submit"><span>เริ่มแปลงไฟล์</span><b>↗</b></button>
+        <p class="privacy">ไฟล์จะถูกประมวลผลบนเซิร์ฟเวอร์ชั่วคราว · ไม่ใช่บริการดาวน์โหลดจาก YouTube</p>
+      </form>
+    </section>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}<div class="notice">{% for message in messages %}{{ message }}{% endfor %}</div>{% endif %}
+    {% endwith %}
+    <footer><span>V-CONVERT STUDIO</span><span>CRAFTED FOR YOUR WORKFLOW ✦</span></footer>
+  </main>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
